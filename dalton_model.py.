@@ -1,0 +1,10 @@
+import cadquery as cq
+radii=[50,75,112,168]
+z=0
+comp=cq.Workplane("XY")
+for r in radii:
+    shell=cq.Workplane("XY").circle(r).circle(r-15).extrude(200).translate((0,0,z))
+    lining=cq.Workplane("XY").circle(r-15).circle(r-20).extrude(200).translate((0,0,z))
+    comp=comp.union(shell).union(lining)
+    z+=150
+comp.exportStep("dalton_alas.step")
